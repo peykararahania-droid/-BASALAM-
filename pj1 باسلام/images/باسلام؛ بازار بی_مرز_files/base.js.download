@@ -1,0 +1,485 @@
+if (window.__adexo_sdk_initialized__) {
+console.warn("Adexo SDK: Script already loaded.");
+} else {
+window.__adexo_sdk_initialized__ = true;
+var retargeting_sdk = (function() {
+!function() {
+var adexouid = "";
+var domain = "https://rt.adexo.ir";
+var currentPath = decodeURIComponent(location.href.substr(location.origin.length));
+var adx_url = new URL(location.href.split("?")[0].split("#")[0]);
+function isPrefix(mainString, prefix) {
+return (mainString.substring(0, prefix.length) === prefix)
+}
+function isPostfix(mainString, postfix) {
+return (mainString.substring(mainString.length - postfix.length, mainString.length) === postfix)
+}
+function checkPath(type, pattern) {
+url = adx_url.toString();
+switch (type) {
+case "^":
+if (isPrefix(url, pattern)) {
+return true;
+}
+case "%":
+if (url.includes(pattern)) {
+return true;
+}
+case "-":
+if (isPostfix(url, pattern)) {
+return true;
+}
+case "=":
+if (url === pattern) {
+return true;
+}
+}
+return false;
+}
+var pSelectors = [
+    {
+    cid: 24,
+    type: "continual",
+    params: "",
+    pattern_type: "%",
+    pattern: "/product/",
+    title: "h1.F7OJfQ",
+    image: "div.bs-light-carousel._eIkz5 > div > div:nth-child(1) > div > img",
+    sku: "",
+    category: "",
+    price: "span.yVL64g",
+    discounted: "span.OYeCuj",
+    },
+];
+var pathIsValidForProduct = false;
+if (pSelectors[0]) {
+pathIsValidForProduct = checkPath(pSelectors[0].pattern_type, pSelectors[0].pattern);
+if (pSelectors[0].params) {
+params = getParameterByName(pSelectors[0].params);
+if (params)
+adx_url.searchParams.append(pSelectors[0].params, params);
+}
+}
+var adx_os = getOs();
+function main_function(tag_id, adexouid) {
+let product = '';
+if (pathIsValidForProduct) {
+product = encodeURIComponent(getProduct());
+}
+let xhr = new XMLHttpRequest();
+xhr.open("GET", domain + "/retargeting/push?tag=" + String(tag_id) + "&uid=" + String(adexouid)+ "&os=" + adx_os
++ "&feed=30"+"&url="+adx_url.toString()+"&p="+product);
+xhr.withCredentials = 1;
+xhr.send(null);
+}
+function minimize_dot(css_selector) {
+if (css_selector.substr(0, 1) == ".") {
+css_selector = css_selector.substr(1);
+}
+return css_selector;
+}
+var allTags = [
+    {
+    tag_id: "560",
+    pattern_type: "%",
+    query: "",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "576",
+    pattern_type: "%",
+    query: "/cat/home",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "577",
+    pattern_type: "%",
+    query: "/cat/appliances",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "578",
+    pattern_type: "%",
+    query: "/cat/apparel",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "579",
+    pattern_type: "%",
+    query: "/cat/beauty",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "580",
+    pattern_type: "%",
+    query: "/cat/grocery",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "581",
+    pattern_type: "%",
+    query: "/cat/tools",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "582",
+    pattern_type: "%",
+    query: "/cat/cultural",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "583",
+    pattern_type: "%",
+    query: "/cat/auto",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "584",
+    pattern_type: "%",
+    query: "/cat/book",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "585",
+    pattern_type: "%",
+    query: "/cat/health",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "586",
+    pattern_type: "%",
+    query: "/cat/digital",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "587",
+    pattern_type: "%",
+    query: "/cat/kids",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "588",
+    pattern_type: "%",
+    query: "/cat/sport",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+    {
+    tag_id: "589",
+    pattern_type: "%",
+    query: "/cat/gold",
+    referrer: "",
+    trigger_type: "page_view",
+    css_selector: "",
+    delay: 0
+    },
+];
+
+function getProductElement(selector) {
+if (!selector) return {textContent: ""};
+return document.querySelector(selector);
+}
+function getProduct() {
+let result = {};
+let selector = pSelectors[0];
+if (!selector) return '';
+result.title = getProductElement(selector.title)?.textContent;
+if (!result.title) return '';
+result.cid = selector.cid;
+result.type = selector.type;
+if (selector.image.startsWith('[static]/')) {
+result.image = selector.image;
+} else {
+result.image = getProductElement(selector.image)?.getAttribute('data-src');
+if (!result.image) result.image = getProductElement(selector.image)?.src;
+if (!result.image) return '';
+}
+result.sku = getProductElement(selector.sku)?.textContent;
+result.category = getProductElement(selector.category)?.textContent;
+if (!selector.price) {
+result.price = '';
+} else if (selector.price == '[-]') {
+result.price = '[-]';
+} else {
+element = getProductElement(selector.price);
+if (element) {
+result.price = element.textContent;
+const price = result.price || '';
+if (['ناموجود', 'غیر قابل', 'اتمام'].some(substring=>price.includes(substring))) {
+result.price = '-';  // unavailable product
+}
+} else {
+result.price = '-';
+}
+}
+result.discounted = getProductElement(selector.discounted)?.textContent;
+return JSON.stringify(result);
+}
+function getOs() {
+let userAgent = window.navigator.userAgent;
+if (/Android/.test(userAgent)) {
+return 'android';
+} else if (/Windows/.test(userAgent)) {
+return 'windows';
+} else if (/Linux/.test(userAgent)) {
+return 'linux';
+} else if (/Mac/.test(userAgent)) {
+return 'mac';
+} else if (/iP/.test(userAgent)) {
+return 'ios';
+} else {
+return 'other';
+}
+}
+function pattern_function(tag, adexouid) {
+if (tag.referrer) {
+if (!(document.referrer && document.referrer.includes(tag.referrer))) {
+return;
+}
+}
+switch (tag.pattern_type) {
+case "^":
+if (isPrefix(currentPath, tag.query)) {
+trigger_function(tag, adexouid);
+}
+break;
+case "%":
+if (currentPath.includes(tag.query)) {
+trigger_function(tag, adexouid);
+}
+break;
+case "-":
+if (isPostfix(currentPath, tag.query)) {
+trigger_function(tag, adexouid);
+}
+break;
+case "=":
+if (currentPath === tag.query) {
+trigger_function(tag, adexouid);
+}
+break;
+}
+}
+function trigger_function(tag, adexouid) {
+switch (tag.trigger_type) {
+case "page_view":
+setTimeout(function() {
+main_function(tag.tag_id, adexouid);
+}, 2000);
+break;
+case "element_click":
+var css_selector = tag.css_selector;
+var classname = document.querySelectorAll(String(css_selector));
+for (var i = 0; i < classname.length; i++) {
+classname[i].addEventListener("click", function() {
+main_function(tag.tag_id, adexouid);
+});
+}
+break;
+case "page_time":
+var delay = tag.delay * 1000;
+setTimeout(function() {
+main_function(tag.tag_id, adexouid);
+}, delay);
+break;
+case "form_submit":
+var form_selector = tag.css_selector;
+var forms = document.querySelectorAll("form" + String(form_selector));
+for (var i = 0; i < forms.length; i++) {
+forms[i].addEventListener("submit", function(e) {
+main_function(tag.tag_id, adexouid);
+});
+}
+break;
+case "meta_tag_header":
+let metaTags = document.querySelectorAll("meta[name='adx-tag']");
+metaTags.forEach(metaTag=>{
+if (metaTag.getAttribute("id") === String(tag.tag_id)) {
+main_function(tag.tag_id, adexouid);
+}
+}
+);
+break;
+}
+}
+function appendIframe(e) {
+if (null != e) {
+var t = document.createElement("iframe");
+t.style.display = "none",
+t.src = e;
+try {
+document.body.appendChild(t)
+} catch (e) {
+console.log(e)
+}
+}
+}
+function supportsLocalStorage() {
+try {
+return localStorage.setItem("1", "1"),
+localStorage.removeItem("1"),
+!0
+} catch (e) {
+return !1
+}
+}
+function supportsCookie() {
+try {
+return Cookies.set("1", "1"),
+Cookies.remove("1"),
+!0
+} catch (e) {
+return !1
+}
+}
+var useLocalStorage = supportsLocalStorage()
+, useCookie = !useLocalStorage && supportsCookie();
+function store(e, t, r) {
+useLocalStorage ? localStorage.setItem(e, t) : useCookie && Cookies.set(e, t, {
+expires: r
+})
+}
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent", eventer = window[eventMethod], messageEvent = "attachEvent" === eventMethod ? "onmessage" : "message", fidKey = "adexouid", fidHolder = {
+val: null,
+listeners: [],
+set value(e) {
+for (this.val = e; 0 < this.listeners.length; )
+this.listeners.pop()(e)
+},
+get value() {
+return this.val
+},
+listen: function(e) {
+this.listeners.push(e)
+}
+}, queryParams;
+function docReady(e) {
+"complete" === document.readyState || "interactive" === document.readyState ? setTimeout(e, 1) : document.addEventListener("DOMContentLoaded", e)
+}
+function load(e) {
+return useLocalStorage ? localStorage.getItem(e) : useCookie ? Cookies.get(e) : null
+}
+function processPage() {
+fidHolder.value = load(fidKey),
+eventer(messageEvent, function(e) {
+try {
+var t = e.data || e.message;
+var z = t;
+if (null == t || void 0 === t.indexOf)
+return;
+0 === t.indexOf("adexouid-fid:") && (t = t.split(":")[1],
+fidHolder.value = t,
+store(fidKey, t, 999)),
+adexouid = t;
+if (0 === z.indexOf("adexouid-fid:")) {
+allTags.forEach(function(tag) {
+pattern_function(tag, adexouid);
+})
+}
+} catch (e) {
+console.log(e)
+}
+});
+}
+
+///////// handle history push and url changes in single-page apps
+(function(history){
+	const pushState = history.pushState;
+	const replaceState = history.replaceState;
+	history.pushState = function(state, title, url) {
+		const result = pushState.apply(history, arguments);
+		window.dispatchEvent(new Event('urlchange'));
+		return result;
+	};
+	history.replaceState = function(state, title, url) {
+		const result = replaceState.apply(history, arguments);
+		window.dispatchEvent(new Event('urlchange'));
+		return result;
+	};
+})(window.history);
+window.addEventListener('urlchange', function(){
+	setTimeout(function() {
+		adx_url = new URL(location.href.split("?")[0].split("#")[0]);
+		allTags.forEach(function(tag) {
+			adexouid = load('adexouid');
+			pattern_function(tag, adexouid);
+		})
+	}, 500);
+});
+////////////////
+
+!function() {
+docReady(function() {
+appendIframe("https://rt.adexo.ir/script/bc.html"),
+processPage()
+})
+}()
+}()
+}
+)();
+
+function getParameterByName(name, url = window.location.href) {
+name = name.replace(/[\[\]]/g, '\\$&');
+var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+results = regex.exec(url);
+if (!results) return null;
+if (!results[2]) return '';
+return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function adxPageLoaded() {
+let adx_baseUrl = 'https://panel.adexo.ir/api/v1/main/';
+let adx_utm_source = getParameterByName('utm_source');
+if (!adx_utm_source) return;
+if (adx_utm_source.toLowerCase() !== 'adexo') return;
+let adx_campaign = getParameterByName('campaign_id');
+let adx_ad = getParameterByName('ad_id');
+let adx_site = getParameterByName('site_id');
+let adx_widget = getParameterByName('widget_id');
+fetch(adx_baseUrl + `landing?campaign_id=${adx_campaign}&widget_id=${adx_widget}&ad_id=${adx_ad}&site_id=${adx_site}`);
+}
+setTimeout(function() {
+adxPageLoaded();
+}, 1000);
+}

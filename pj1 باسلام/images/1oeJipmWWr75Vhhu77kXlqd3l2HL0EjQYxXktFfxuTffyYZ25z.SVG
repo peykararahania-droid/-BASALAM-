@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .85;
+      }
+
+      .cls-2 {
+        fill: #453777;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g class="cls-1">
+    <path class="cls-2" d="m24.02,12.21h-5.97v-3.11h5.98s0-1.68,0-1.68h3.11v1.66c0,1.72-1.4,3.12-3.12,3.12Z"/>
+  </g>
+  <g class="cls-1">
+    <path class="cls-2" d="m16.98,12.21h-.59c-1.72,0-3.12-1.4-3.12-3.12v-3.1h3.11v3.1h0s.59.01.59.01v3.11Z"/>
+  </g>
+  <g class="cls-1">
+    <polygon class="cls-2" points="5.06 16.67 3.55 13.95 5.55 12.84 4.55 7.47 7.61 6.91 9.02 14.48 5.06 16.67"/>
+  </g>
+  <g class="cls-1">
+    <rect class="cls-2" x="10.16" y="13.52" width="5.38" height="3.11"/>
+  </g>
+  <g class="cls-1">
+    <rect class="cls-2" x="4.77" y="3.47" width="3.11" height="2.51"/>
+  </g>
+  <g class="cls-1">
+    <polygon class="cls-2" points="26.07 17.98 24.34 16.64 20.57 16.64 20.57 13.52 25.41 13.52 27.98 15.53 26.07 17.98"/>
+  </g>
+  <g class="cls-1">
+    <path class="cls-2" d="m25.99,29.06c-2.47,0-4.49-2.01-4.49-4.49s2.01-4.49,4.49-4.49,4.49,2.01,4.49,4.49-2.01,4.49-4.49,4.49Zm0-5.86c-.76,0-1.38.62-1.38,1.38s.62,1.38,1.38,1.38,1.38-.62,1.38-1.38-.62-1.38-1.38-1.38Z"/>
+  </g>
+  <g class="cls-1">
+    <rect class="cls-2" x="6.8" y="9.1" width="6.46" height="3.11"/>
+  </g>
+  <g class="cls-1">
+    <path class="cls-2" d="m20.54,26.06h-.59c-1.72,0-3.12-1.4-3.12-3.12v-3.1h3.11v3.1h0s.59.01.59.01v3.11Z"/>
+  </g>
+  <g class="cls-1">
+    <rect class="cls-2" x="10.25" y="27.38" width="8.5" height="3.11"/>
+  </g>
+  <g class="cls-1">
+    <rect class="cls-2" x="5.23" y="17.33" width="3.11" height="2.51"/>
+  </g>
+  <g class="cls-1">
+    <polygon class="cls-2" points="5.03 30.53 3.53 27.81 5.52 26.7 4.52 21.33 7.58 20.76 8.99 28.33 5.03 30.53"/>
+  </g>
+  <g class="cls-1">
+    <rect class="cls-2" x="23.62" y="2.23" width="3.11" height="9.78" transform="translate(11.82 29.62) rotate(-75.11)"/>
+  </g>
+  <g class="cls-1">
+    <rect class="cls-2" x="7.26" y="22.95" width="9.57" height="3.11"/>
+  </g>
+</svg>
